@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "380624961938",
+    "project_id": "solace-project101",
+    "storage_bucket": "solace-project101.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380624961938:android:3d0ef72afe58c57b8dc14b",
+        "android_client_info": {
+          "package_name": "com.solace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "380624961938-f1am6m0ik9klpe88mb7p631lnis8kr04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh6xH7ag7mggZ6YITRwZSMDiiwF2vKAMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "380624961938-f1am6m0ik9klpe88mb7p631lnis8kr04.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

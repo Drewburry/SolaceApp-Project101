@@ -1,30 +1,40 @@
-import React from 'react';
-import {StyleSheet, Text, View,Image} from 'react-native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {NavigationContainer} from '@react-navigation/native';
-import Home from './Screens/Home';
-import Login from './Screens/Login';
-import SignUp from './Screens/SignUp';
-import Journal from './Screens/Journal';
-import Chat from './Screens/Chat';
-import Toolkit from './Screens/Toolkit';
-import Facilities from './Screens/Facilities';
-import OnboardingPage from 'react-native-onboarding-swiper';
+import 'react-native-gesture-handler';
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import OnboardingScreen from './Screens/Onboarding';
+import LoginScreen from './Screens/Login'
+import DrawerNavigation from './Assets/Navigations/DrawerNavigation';
 
+const Stack = createNativeStackNavigator();
 
-const Drawer = createDrawerNavigator();
+function Root(){
+  return(
+    <DrawerNavigation />
+  )
+}
 
-const App = () => {
-  return (
+function App() {
+  const [isLoggeIn, setIsloggedIn] = useState(true)
+  return ( 
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={Home} />
-        <Drawer.Screen name="Journal" component={Journal} />
-        <Drawer.Screen name="Chat" component={Chat} />
-        <Drawer.Screen name="Toolkit" component={Toolkit} />
-        <Drawer.Screen name="Facilities" component={Facilities} />
-      </Drawer.Navigator>
-    </NavigationContainer>  
+      <Stack.Navigator>
+        {isLoggeIn ? (  
+        <Stack.Group>
+          <Stack.Screen
+            name="Root"
+            component={Root}
+            options={{ headerShown: false }} />
+        </Stack.Group>
+        ) : (
+        <Stack.Group>
+          <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+        </Stack.Group>
+        )}       
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

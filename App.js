@@ -9,6 +9,7 @@ import DrawerNavigation from './Assets/Navigations/DrawerNavigation';
 
 const Stack = createNativeStackNavigator();
 
+// Nested navigators
 function Root(){
   return(
     <DrawerNavigation />
@@ -40,4 +41,6 @@ function App() {
 
 export default App
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+})

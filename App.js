@@ -12,15 +12,15 @@ import Facilities from './Screens/Facilities';
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-  return (
+  return ( 
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={Home} />
+       {/* <Drawer.Screen name="Home" component={Home} /> */}
         <Drawer.Screen name="Journal" component={Journal} />
-        <Drawer.Screen name="Chat" component={Chat} />
-        <Drawer.Screen name="Toolkit" component={Toolkit} />
-        <Drawer.Screen name="Facilities" component={Facilities} />
-      </Drawer.Navigator>
+       {/* <Drawer.Screen name="Chat" component={Chat} /> */}
+        {/* <Drawer.Screen name="Toolkit" component={Toolkit} /> */}
+        {/* <Drawer.Screen name="Facilities" component={Facilities} /> */}
+     </Drawer.Navigator>
     </NavigationContainer>
   );
 }

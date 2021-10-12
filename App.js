@@ -5,7 +5,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import OnboardingScreen from './Screens/Onboarding';
 import LoginScreen from './Screens/Login'
+import Home from './Screens/Home';
 import DrawerNavigation from './Assets/Navigations/DrawerNavigation';
+import SignUp from './Screens/SignUp';
+import Login from './Screens/Login';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +21,7 @@ function Root(){
 }
 
 function App() {
+
   const [isLoggeIn, setIsloggedIn] = useState(false)
   return ( 
     <NavigationContainer>
@@ -30,17 +35,20 @@ function App() {
         </Stack.Group>
         ) : (
         <Stack.Group>
-          <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
-          <Stack.Screen name="Login" component={LoginScreen} />
+          {/* <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} /> */}
+          <Stack.Screen options={{ headerShown:false}} name="Login" >
+            {props=><LoginScreen {...props} setIsloggedIn={setIsloggedIn}/>}
+          </Stack.Screen>
+          <Stack.Screen options={{ headerShown:false}} name="SignUp" component={SignUp} />
         </Stack.Group>
         )}       
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
-export default App
+export default App;
 
 const styles = StyleSheet.create({
-
-})
+ 
+});

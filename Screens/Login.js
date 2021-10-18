@@ -1,10 +1,46 @@
-import React from 'react'
-import { TextInput, TouchableOpacity, } from 'react-native-gesture-handler'
-import { StyleSheet, Text, View, Image, Button } from 'react-native'
+import React, {useState, useEffect} from 'react'
+import { TextInput, } from 'react-native-gesture-handler'
+import { StyleSheet, Text, View, Image, Button,TouchableOpacity ,} from 'react-native'
+import { firebase } from '@react-native-firebase/auth'
 
 
-const Login = () => {
+const Login = ({navigation, setIsloggedIn}) => {
+    // Set an initializing state whilst Firebase connects
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const img = require('../Assets/Images/logo.png')
+
+    function onAuthStateChanged(user) {
+        setUser(user);
+        if (initializing) setInitializing(false);
+      }
+      useEffect(() => {
+        const subscriber = firebase.auth().onAuthStateChanged(user =>{
+            if(user) {
+                setIsloggedIn(true)
+            }
+        });
+        return subscriber; // unsubscribe on unmount
+      }, []);
+      
+    //    firebase authentication
+    const handleSignIn =({navigation})=>{
+        firebase.auth().signInWithEmailAndPassword(email,password).then(()=>{
+            // alert('sign in successfull')
+        }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            if (errorCode === 'auth/wrong-password') {
+              alert('Wrong password.');
+            } else {
+              alert(errorMessage);
+            }
+            console.log(error);
+          });
+    }
 
     return (
         <View style={styles.container}>
@@ -23,23 +59,30 @@ const Login = () => {
                 <TextInput
                     placeholder='Email Adress'
                     style={styles.TextInput}
-                    onChangeText={(password) => setPassword(password)}
+                    value={email}
+                    onChangeText={text => setEmail(text)}
                 />
                 <TextInput
                     placeholder='Password'
                     style={styles.TextInput}
-                    onChangeText={(password) => setPassword(password)}
+                    value={password} 
+                    onChangeText={text => setPassword(text)}
+                    secureTextEntry
                 />
             </View>
 
             {/* Button */}
-            <TouchableOpacity >
+            <TouchableOpacity onPress={handleSignIn}>
                 <Text style={styles.btn}>Sign in</Text>
             </TouchableOpacity>
 
             {/* bottom SignUp text */}
             <View style={styles.text}><Text >Forgot your password?</Text></View>
-            <Text>Don't have an account? <Text style={{ color: "#f2c66e" }}>Sign in </Text></Text>
+            <Text>Don't have an account?
+                <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                    <Text style={{ color: "#f2c66e", padding: 5, }}>SignUp</Text>
+                </TouchableOpacity>
+            </Text>
         </View>
 
     )
@@ -53,9 +96,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
 
     },
-
     TextInput: {
-        top: 0,
         position: 'relative',
         borderWidth: 1,
         width: 360,
@@ -63,13 +104,12 @@ const styles = StyleSheet.create({
         marginBottom: 25,
         borderRadius: 25,
         paddingLeft: 12,
-        border: 'none',
     },
+
     logo: {
+        marginTop: 15,
         width: 100,
         height: 100,
-        paddingTop: 180,
-
     },
     header: {
         marginLeft: 150,
@@ -89,7 +129,7 @@ const styles = StyleSheet.create({
     },
     btn: {
         position: 'relative',
-        marginTop: 70,
+        marginTop: 5,
         borderWidth: 1,
         width: 140,
         height: 50,
@@ -98,11 +138,12 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         paddingTop: 12,
+        marginBottom: 5,
 
 
 
     },
     text: {
-        marginBottom: 50,
+        marginBottom: 5,
     }
 })

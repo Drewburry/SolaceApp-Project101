@@ -5,11 +5,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import OnboardingScreen from './Screens/Onboarding';
 import LoginScreen from './Screens/Login'
-import Home from './Screens/Home';
 import DrawerNavigation from './Assets/Navigations/DrawerNavigation';
-import Journal4 from './Screens/journal4';
+import SignUp from './Screens/SignUp';
+
+
 const Stack = createNativeStackNavigator();
 
+// Nested navigators
 function Root(){
   return(
     <DrawerNavigation />
@@ -30,7 +32,11 @@ function App() {
         </Stack.Group>
         ) : (
         <Stack.Group>
-          <Stack.Screen name="Journal3" component={Home} />
+          <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+          <Stack.Screen options={{ headerShown:false}} name="Login" >
+            {props=><LoginScreen {...props} setIsloggedIn={setIsloggedIn}/>}
+          </Stack.Screen>
+          <Stack.Screen options={{ headerShown:false}} name="SignUp" component={SignUp} />
         </Stack.Group>
         )}       
       </Stack.Navigator>

@@ -8,68 +8,6 @@ import Para from '../Components/Para';
 import Para2 from '../Components/Para2';
 import Para3 from '../Components/Para3';
 
-// const OnboardingPage = () => {
-//     return (
-//       <>
-//         <View style={styles.yellow}>
-
-// </View>
-
-
-
-// <Onboarding 
-// pages={[
-//   {
-//     backgroundColor: '#fff',
-//    image: <Image source={require('./Assets/Images/TwoP.png')}/>,
-//     title: 'HEAL YOUR SOUL  '+  '\n'  +' is simply dummy text of the printing '
-//     +'and typesetting industry. Lorem Ipsum '
-//    ,
-//     subtitle:"awaewewew" ,
- 
-//   },
-
-//   {
-//     backgroundColor: '#fff',
-//     image: <Image source={require('./Assets/Images/happ.png')}/>,
-//     title: 'FIND YOUR PEACE'+'\n' + ' is simply dummy text of the printing '
-//     +'and typesetting industry. Lorem Ipsum '
-//    +' has been the',
-//     subtitle: <Circle/>,
-//   },
-//   {
-//     backgroundColor: '#fff',
-//    image: <Image source={require('./Assets/Images/peace1.png')}/>,
-//    title: 'FIND YOUR HAPPPY'+'\n'  + ' is simply dummy text of the printing '
-//    +'and typesetting industry. Lorem Ipsum '
-//    +' has been the',
-//     subtitle:  <Circle/>,  
-//   },
-
-// ]}
-
-// />
-//      </>
-//     )
-// }
-
-// export default OnboardingPage
-
-// const styles = StyleSheet.create({
-//   yellow:{
-//     backgroundColor:"#F2C66E",
-//     width:100,
-//     height:100,
-//     borderRadius:100,
-//     marginTop:-30,
-//     marginLeft:-20
-//   },
-
-//   Onboarding:{
-//     color:'yellow'
-//   }
-
-  
 const OnboardingScreen = ({navigation}) => {
   const img = require('../Assets/Images/test.png')
   const Skip = ({...props}) =>{
@@ -100,8 +38,8 @@ const OnboardingScreen = ({navigation}) => {
       </View>
 
       <Onboarding
-      onSkip={() => navigation.navigate("Login")}
-      onDone={() => navigation.navigate("Login")}
+      onSkip={() => navigation.replace("Login")}
+      onDone={() => navigation.replace("Login")}
       SkipButtonComponent={Skip}
       NextButtonComponent={Next}
       DoneButtonComponent={Done}

@@ -12,17 +12,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';;
 const Stack = createNativeStackNavigator();
 
 // Nested navigators
-function Root(){
+function Root({navigation}){
   return(
-    <DrawerNavigation />
+    <DrawerNavigation navigate={navigation}/>
   )
 }
 
 function App() {
   const [isLoggeIn, setIsloggedIn] = useState(false);
     return(   
-    <NavigationContainer>
-      <Stack.Navigator>
+    <NavigationContainer >
+      <Stack.Navigator >
         {isLoggeIn ? (  
         <Stack.Group>
           <Stack.Screen
@@ -31,7 +31,7 @@ function App() {
             options={{ headerShown: false }} />
         </Stack.Group>
         ) : (
-        <Stack.Group>
+        <Stack.Group >
           {/* <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} /> */}
           <Stack.Screen options={{ headerShown:false}} name="Login" >
             {props=><LoginScreen {...props} setIsloggedIn={setIsloggedIn}/>}

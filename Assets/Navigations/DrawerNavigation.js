@@ -2,13 +2,12 @@ import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Button, StyleSheet, Text, View } from 'react-native'
 import Home from '../../Screens/Home';
-import Journal2 from '../../Screens/Journal2';
+import Journal from '../../Screens/Journal';
 import Chat from '../../Screens/Chat';
 import Toolkit from '../../Screens/Toolkit';
 import Facilities from '../../Screens/Facilities';
 import DrawerNavigationContent from '../../Components/DrawerNavigationContent';
 
-import auth from '@react-native-firebase/auth';
 
 const Drawer = createDrawerNavigator();
 

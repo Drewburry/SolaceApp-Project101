@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, Button,TouchableOpacity ,} from 'react-n
 import { firebase } from '@react-native-firebase/auth'
 
 
-const Login = ({setIsloggedIn}) => {
+const Login = ({setIsloggedIn, navigation}) => {
     // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
@@ -26,7 +26,7 @@ const Login = ({setIsloggedIn}) => {
       }, []);
       
     //    firebase authentication
-    const handleSignIn =({navigation})=>{
+    const handleSignIn =()=>{
         firebase.auth().signInWithEmailAndPassword(email,password).then(()=>{
             // alert('sign in successfull')
         }).catch(function(error) {

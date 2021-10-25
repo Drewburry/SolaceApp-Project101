@@ -1,76 +1,42 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Image, Button } from 'react-native'
-import { color } from 'react-native-reanimated'
+
+// component for the content rendered in the Journals
+const Content = (props) => {
+    return (
+
+        <View style={styles.boders}>
+            <View style={styles.border}>
+                <View style={{ alignContent: 'center', justifyContent: 'center' }}>
+                    <Image source={props.images} style={styles.happy} />
+                </View>
+                <Text style={styles.happytext}>{props.text}</Text>
+            </View>
+        </View>)
+}
 
 const Journal = () => {
-    const img = require('../Assets/Images/profile.png')
-    const img1 = require('../Assets/Images/happy.png')
-    const img2 = require('../Assets/Images/sad.png')
-    const img3 = require('../Assets/Images/crying.png')
-    const img4 = require('../Assets/Images/lonely.png')
-    const img5 = require('../Assets/Images/hand.png')
-    const img6 = require('../Assets/Images/heartbroken.png')
     return (
         <View style={styles.mainContainer}>
-            <View>
-                <Image source={img} style={styles.profile} />
-            </View>
-
+            {/* Header text */}
             <Text style={styles.contentText}>Hi Mpho</Text>
             <Text style={styles.contentText}>how are you feeling?</Text>
 
-            <View style={styles.boders}>
-                <View style={styles.border}>
-                    <View>
-                        <Image source={img1} style={styles.happy} />
-                    </View>
-                    <Text style={styles.happy}>Happy</Text>
-                </View>
+           {/* first row of icons */}
+           <View style={{flexDirection:'row'}}>
+            <TouchableOpacity><Content images={require('../Assets/Images/happy.png')} text="Happy"/></TouchableOpacity>
+            <TouchableOpacity><Content images={require('../Assets/Images/sad.png')} text="Sad"/></TouchableOpacity>
+            <TouchableOpacity><Content images={require('../Assets/Images/crying.png')} text="crying"/></TouchableOpacity>
+           </View>
 
-                <View style={styles.border}>
-                    <View>
-                        <Image source={img2} style={styles.happy} />
-                    </View>
-                    <Text style={styles.sad}>Sad</Text>
-                </View>
+           {/* second row of icons */}
+           <View style={{flexDirection:'row'}}>
+            <TouchableOpacity><Content images={require('../Assets/Images/lonely.png')} text="lonely"/></TouchableOpacity>
+            <TouchableOpacity><Content images={require('../Assets/Images/hand.png')} text="Ok"/></TouchableOpacity>
+            <TouchableOpacity><Content images={require('../Assets/Images/heartbroken.png')} text="broken"/></TouchableOpacity>
+           </View>
 
-                <View style={styles.border}>
-                    <View>
-                        <Image source={img3} style={styles.happy} />
-                    </View>
-                    <Text style={styles.crying}>Awful</Text>
-                </View>
-
-            </View>
-
-            <View>
-
-                <View style={styles.boders}>
-                    <View style={styles.border}>
-                        <View>
-                            <Image source={img4} style={styles.happy} />
-                        </View>
-                        <Text style={styles.happy}>Lonely</Text>
-                    </View>
-
-                    <View style={styles.border}>
-                        <View>
-                            <Image source={img5} style={styles.happy} />
-                        </View>
-                        <Text style={styles.happy}>Great</Text>
-                    </View>
-
-                    <View style={styles.border}>
-                        <View>
-                            <Image source={img6} style={styles.heart} />
-                        </View>
-                        <Text style={styles.heartbroken}>heartbroken</Text>
-                    </View>
-
-                </View>
-
-            </View>
-
+            {/* Buttons  */}
             <View style={styles.btns}>
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.btn}>Back</Text>
@@ -87,109 +53,72 @@ export default Journal
 
 const styles = StyleSheet.create({
     mainContainer: {
+        flex: 1,
         alignItems: 'center',
-        marginTop: 20,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     contentText: {
-        fontSize: 25,
-        color: '#f2c66e'
+        top: 45,
+        position: 'relative',
+        fontSize: 20,
+        color: '#f2c66e',
+        lineHeight: 20,
     },
     border: {
-        border: 1,
-        width: 95,
-        height: 92,
+        width: 65,
+        height: 65,
         borderWidth: 1,
-        borderRadius: 200,
+        borderRadius: 50,
         marginRight: 30,
-        marginTop: 40
+        marginTop: 100
     },
     boders: {
-        flexDirection: 'row'
+        flexDirection: 'row',
 
     },
     btn: {
         color: 'white',
-        marginLeft: 20,
-        marginTop: 15
+        marginLeft: 15,
 
     },
-    happy: {
-        marginTop: 25,
-        marginLeft: 25,
 
-
-
-    },
-    
 
     button: {
         border: 1,
         borderWidth: 2,
         borderRadius: 60,
         width: 85,
-        height: 60,
-        marginTop: 150,
-        marginRight: 100,
-        backgroundColor: 'black'
-
+        height: 40,
+        marginTop: 10,
+        marginRight: 70,
+        backgroundColor: 'black',
+        padding:7
+        
     },
 
     btns: {
         flexDirection: 'row',
-       marginTop:-30
-
-
+        marginTop:100,
+        paddingVertical:25,
     },
     button2: {
         border: 1,
         borderWidth: 2,
         borderRadius: 60,
         width: 85,
-        height: 60,
-        marginTop: 150,
+        height: 40,
+        marginTop: 10,
         marginLeft: 100,
-        backgroundColor: 'black'
-
+        backgroundColor: 'black',
+        padding:7,
     },
-    profile: {
-        marginLeft: 350,
-        marginTop: 0,
-
+   
+    happy:{
+     margin:7,
     },
-    grand: {
-        marginLeft: 150,
-        marginBottom: -59,
-        marginTop: 32
+    happytext:{
+   textAlign:'center'
     },
-    text: {
-
-    },
-    sad: {
-        marginTop: 28,
-        marginLeft: 40,
-        fontWeight: 'bold',
-
-    },
-    heart: {
-
-        marginTop: 20,
-        marginLeft: 20,
-        fontWeight: 'bold',
-
-    },
-    crying: {
-        marginBottom: -400,
-        marginTop: 28,
-        marginLeft: 30,
-        fontWeight: 'bold',
-    },
-    heartbroken:{
-        marginTop: 20,
-        marginLeft: 13,
-        fontWeight: 'bold',
-
-    }
 
 
 })

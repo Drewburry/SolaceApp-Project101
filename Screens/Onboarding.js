@@ -12,21 +12,21 @@ const OnboardingScreen = ({navigation}) => {
   const img = require('../Assets/Images/test.png')
   const Skip = ({...props}) =>{
     return(
-     <TouchableOpacity  >
+     <TouchableOpacity style={{backgroundColor:"#FFFFFF",width:500,height:64}}  >
        <Text {...props} style={styles.skipBtn}>Skip</Text>
        </TouchableOpacity>
     )
   }
   const Next = ({...props}) =>{
     return(
-     <TouchableOpacity {...props} >
+     <TouchableOpacity {...props} style={{backgroundColor:"#FFFFFF",height:64 }}  >
        <Text {...props} style={styles.nextBtn}>Next</Text>
      </TouchableOpacity>
     )
   }
   const Done = ({...props}) =>{
     return(
-     <TouchableOpacity {...props} >
+     <TouchableOpacity {...props} style={{backgroundColor:"#FFFFFF",width:500 ,height:64}} >
        <Text {...props} style={styles.DoneBtn}>Done</Text>
      </TouchableOpacity>
     )
@@ -34,7 +34,9 @@ const OnboardingScreen = ({navigation}) => {
     return (
       <>
       {/* Onboarding circle */}
+      <View style={{backgroundColor:'#FFFFFF'}}>
       <View style={styles.yellow}>
+      </View>
       </View>
 
       <Onboarding
@@ -100,7 +102,8 @@ const styles = StyleSheet.create({
    borderRadius:30,
    backgroundColor:'black',
    padding:10,
-   paddingLeft:20
+   paddingLeft:20,
+   marginTop:10
   },
 nextBtn:{
   width:80,
@@ -110,16 +113,18 @@ nextBtn:{
   borderRadius:30,
   backgroundColor:'black',
   padding:10,
-  paddingLeft:20
+  paddingLeft:20,
+  marginTop:10
 },
 DoneBtn:{
   width:80,
   height:40,
   color:'#fff',
-  marginHorizontal:20,
+  marginHorizontal:400,
   borderRadius:30,
   backgroundColor:'black',
   padding:10,
-  paddingLeft:20
+  paddingLeft:20,
+  marginTop:10
 },
 })

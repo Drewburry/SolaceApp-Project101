@@ -1,6 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {ScrollView, TextInput} from 'react-native-gesture-handler';
+import Sendbutton from '../Components/Button';
+
 
 const img = require('../Assets/Images/heart.png');
 const img1 = require('../Assets/Images/Celebb.png');
@@ -28,23 +30,32 @@ const Comments = () => {
       </Text>
       <View style={{flexDirection: 'row', alignSelf: 'center'}}>
         <View style={styles.border}>
+          <TouchableOpacity>
           <Image source={img} style={{width: 20, height: 20, marginLeft: 30}} />
+          </TouchableOpacity>
         </View>
         <View style={styles.border}>
+          <TouchableOpacity>
           <Image
             source={img2}
             style={{width: 20, height: 20, marginLeft: 30}}
           />
+          </TouchableOpacity>
         </View>
         <View style={styles.border}>
+          <TouchableOpacity>
           <Image
             source={img1}
             style={{width: 20, height: 20, marginLeft: 30}}
           />
+          </TouchableOpacity>
         </View>
       </View>
-      <TextInput style={styles.comment} placeholder="Enter comment" />
-    
+      <TextInput style={styles.comment} placeholder="Enter comment" size={45} row={10 } col={5}/>
+      {/* send button  */}
+      <TouchableOpacity>
+    <Sendbutton/>
+    </TouchableOpacity>
     </View>
   );
 };
@@ -55,14 +66,16 @@ const Profile = () => {
         <View style={{}}>
           <Text style={styles.tex}>Your Thoughts</Text>
         </View>
-        <View style={styles.Profile}>
-          <Image source={pro} style={{width: 60, height: 60}} />
-        </View>
+        
       </View>
       <View style={styles.heading2}>
+        <TouchableOpacity>
         <Text style={styles.text}>Community Thoughts</Text>
+        </TouchableOpacity>
         <Text style={styles.fav}> favourites </Text>
+        <TouchableOpacity>
         <Image source={dropD} style={{width: 15, height: 20, marginTop: 5}} />
+        </TouchableOpacity>
       </View>
     </>
   );
@@ -85,9 +98,7 @@ const Home = () => {
         </View>
 
       </View>
-      <TouchableOpacity style={styles.btnJournal}>
-        <Text style={styles.journal}>My journal</Text>
-      </TouchableOpacity>
+    
     </ScrollView>
   );
 };
@@ -122,13 +133,7 @@ const styles = StyleSheet.create({
     paddingLeft: 1,
     marginLeft: 30,
   },
-  Profile: {
-    marginTop: 5,
-    width: 50,
-    height: 50,
-    borderRadius: 60,
-    marginLeft: 70,
-  },
+ 
   heading2: {
     flexDirection: 'row',
   },

@@ -10,7 +10,9 @@ const Journal3 = () => {
     return (
         <View style={{ backgroundColor:'#FFFFFF'}}>
         <View style={styles.mainContainer}>
+            <TouchableOpacity>
            <Image source={img} style={{width:30,height:30}}/>
+           </TouchableOpacity>
 
            <Image source={imp} style={{width:30,height:30}}/>
            

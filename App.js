@@ -32,7 +32,7 @@ function App() {
         </Stack.Group>
         ) : (
         <Stack.Group>
-          {/* <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} /> */}
+     <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} /> 
           <Stack.Screen options={{ headerShown:false}} name="Login" >
             {props=><LoginScreen {...props} setIsloggedIn={setIsloggedIn}/>}
           </Stack.Screen>

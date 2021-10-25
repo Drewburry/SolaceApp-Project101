@@ -1,13 +1,15 @@
 import React from 'react'
 import { StyleSheet, Text, View,Image } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler';
  const Journal4=()=>{
     const img = require('../Assets/Images/Diary.png');
     const imp = require('../Assets/Images/home.png');
      return(
        
          <View style={styles.mainContainer}>
-            
+            <TouchableOpacity>
              <Image source={imp} style={{width:30,height:30,margin:10}}/>
+             </TouchableOpacity>
 
              <View style={{flexDirection:'row',marginLeft:20}}>
                  <Image source={img} style={{width:50,height:50}}/>

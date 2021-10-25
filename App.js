@@ -8,7 +8,8 @@ import LoginScreen from './Screens/Login'
 import DrawerNavigation from './Assets/Navigations/DrawerNavigation';
 import SignUp from './Screens/SignUp';
 import Login from './Screens/Login';
-import AsyncStorage from '@react-native-async-storage/async-storage';;
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Stack = createNativeStackNavigator();
 
 // Nested navigators

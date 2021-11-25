@@ -1,5 +1,3 @@
-
-import { initializeApp } from "firebase/app"; 
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
@@ -14,13 +12,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let app;
-if (firebase.app.length === 0) {
-    app = initializeApp(firebaseConfig);
-} else {
-    app = firebase.app();
-}
 
-const auth = firebase.auth()
+   firebase.initializeApp(firebaseConfig);
 
-export {auth}
+
+export {firebase}

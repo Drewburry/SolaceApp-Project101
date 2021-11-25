@@ -1,105 +1,173 @@
-import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import {ScrollView, TextInput} from 'react-native-gesture-handler';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import Sendbutton from '../Components/Button';
-
-
+import { Avatar } from 'react-native-paper';
+import Favourites from './Favourites'
+import SwitchSelector from "react-native-switch-selector";
+import { firebase } from '@react-native-firebase/firestore';
+import '@react-native-firebase/auth'
 const img = require('../Assets/Images/heart.png');
 const img1 = require('../Assets/Images/Celebb.png');
 const img2 = require('../Assets/Images/star.png');
-const pro = require('../Assets/Images/profile.png');
-const dropD = require('../Assets/Images/dropD.png');
-const Comments = () => {
-  return (
-    <View style={styles.person}>
-      <View style={styles.row}>
-        <View style={styles.prof}>
-          <View style={styles.letter}>
-            <Text style={styles.Initials}>L</Text>
-          </View>
 
-          <View>
-            <Text style={styles.per}>Landi</Text>
-            <Text style={styles.timeSeen}>12 min ago</Text>
-          </View>
-          <View></View>
-        </View>
-      </View>
-      <Text style={{paddingLeft: 20}}>
-        I love myself . 'I encourage everyone to be true to themselves
-      </Text>
-      <View style={{flexDirection: 'row', alignSelf: 'center'}}>
-        <View style={styles.border}>
-          <TouchableOpacity>
-          <Image source={img} style={{width: 20, height: 20, marginLeft: 30}} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.border}>
-          <TouchableOpacity>
-          <Image
-            source={img2}
-            style={{width: 20, height: 20, marginLeft: 30}}
-          />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.border}>
-          <TouchableOpacity>
-          <Image
-            source={img1}
-            style={{width: 20, height: 20, marginLeft: 30}}
-          />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <TextInput style={styles.comment} placeholder="Enter comment" size={45} row={10 } col={5}/>
-      {/* send button  */}
-      <TouchableOpacity>
-    <Sendbutton/>
-    </TouchableOpacity>
-    </View>
-  );
-};
-const Profile = () => {
-  return (
-    <>
-      <View style={styles.head}>
-        <View style={{}}>
-          <Text style={styles.tex}>Your Thoughts</Text>
-        </View>
-        
-      </View>
-      <View style={styles.heading2}>
-        <TouchableOpacity>
-        <Text style={styles.text}>Community Thoughts</Text>
-        </TouchableOpacity>
-        <Text style={styles.fav}> favourites </Text>
-        <TouchableOpacity>
-        <Image source={dropD} style={{width: 15, height: 20, marginTop: 5}} />
-        </TouchableOpacity>
-      </View>
-    </>
-  );
-};
 
+const select = [
+  { label: "Community", value: "community" },
+  { label: "Favourites", value: "favourites" },
+  { label: "Chats", value: "Chats" },
+];
+
+const auth = firebase.auth();
 const Home = () => {
+
+  const [community, setCommunity] = React.useState(true)
+  const [favourites, setFavourites] = React.useState(false)
+  const [chats, setChats] = React.useState(false)
+  const [val, setVal] = React.useState(null)
+  const [user, setUser] = React.useState(() => auth.currentUser)
+
+  const [date, setDate] = React.useState(new Date())
+ 
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user)
+        console.log(user)
+      } else {
+        setUser(null)
+      }
+    })
+  }, [])
+
+  var db = firebase.firestore();
+  useEffect(() => {
+    db.collection('community')
+      .get()
+      .then(snapshot => {
+        const val = []
+        snapshot.forEach(doc => {
+          const data = doc.data()
+          val.push(data)
+        })
+        setVal(val)
+      }).catch((error) => {
+        console.log(error)
+      })
+  }, [])
+
+ 
+//  const userName = () =>{
+//    if(user == user){
+//      user.updateProfile({
+//        displayName:"firstName"
+//      })
+//    }else{
+//      setUser(null)
+//    }
+//  }
+  const Check = ((value) => {
+    if (value == "community") {
+      setCommunity(true)
+    } else if (value == "favourites") {
+      setFavourites(true);
+      setCommunity(false);
+      setChats(false)
+    } else {
+      setChats(true);
+      setFavourites(false);
+      setCommunity(false);
+    }
+  })
   return (
-    <ScrollView vertical={true} style={{}} style={{backgroundColor: '#FFFFFF',}}>
-      <View style={{}}>
-        {/* profile and home Header */}
-        <View style={{marginLeft: 25}}>
-          <Profile />
+    <View style={{ flex: 1 }}>
+      <View>
+        <View style={styles.head}>
+          <View >
+            <Text style={styles.tex}>Your Thoughts</Text>
+          </View>
         </View>
 
-        {/* Comments section */}
-        <View style={{flex: 2}}>
-          <Comments />
-          <Comments />
-       
-        </View>
+        <SwitchSelector
+          style={{ margin: 10 }}
+          options={select}
+          initial={community ? 0 : 1}
+          buttonColor="#F2C66E"
+          onPress={(value) => {
+            Check(value);
+          }}
 
+        />
       </View>
-    
-    </ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: '#FFFFFF', }}>
+        {
+          val && val.map(val => {
+            return (
+              <View style={styles.person}>
+                {community ?
+
+                  <View>
+                    <View style={styles.row}>
+                      <View style={styles.prof}>
+                        <Avatar.Image
+                          style={{ marginTop: 5 }}
+                          size={50}
+                          source={{ uri: 'https://www.shaadidukaan.com/vogue/wp-content/uploads/2019/08/hug-kiss-images.jpg' }}
+                        />
+                        
+                        <View>
+                          <Text style={styles.per}>{user.displayName}</Text>
+                          <Text style={styles.timeSeen}>Last seen {date.toTimeString().substring(0, 8)} </Text>
+                        </View>
+                        <View></View>
+                      </View>
+                    </View>
+                    <View style={{ paddingLeft: 20, flexDirection: "column" }}>
+                      <Text>Mood {val.mood}</Text>
+                      <Text>{val.text}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
+                      <View style={styles.border}>
+                        <TouchableOpacity onPress={() => saveFav("testing")}>
+                          <Image source={img} style={{ width: 25, height: 25, marginLeft: 25 }} />
+                        </TouchableOpacity>
+                      </View>
+                      <View style={styles.border}>
+                        <TouchableOpacity>
+                          <Image
+                            source={img2}
+                            style={{ width: 25, height: 25, marginLeft: 30 }}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                      <View style={styles.border}>
+                        <TouchableOpacity>
+                          <Image
+                            source={img1}
+                            style={{ width: 25, height: 25, marginLeft: 30 }}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                    <TextInput style={styles.comment} placeholder="Enter comment" size={45} row={10} col={5} />
+                    {/* send button  */}
+                    <TouchableOpacity>
+                      <Sendbutton />
+                    </TouchableOpacity>
+                  </View>
+                  :
+
+                  null
+
+                }
+              </View>
+            )
+          })
+        }
+      </ScrollView>
+      {favourites ? <View><Favourites /></View> : null}
+      {chats ? <View><Text>Chats</Text></View> : null}
+    </View>
   );
 };
 
@@ -133,7 +201,7 @@ const styles = StyleSheet.create({
     paddingLeft: 1,
     marginLeft: 30,
   },
- 
+
   heading2: {
     flexDirection: 'row',
   },
@@ -143,41 +211,28 @@ const styles = StyleSheet.create({
   },
   person: {
     width: '90%',
-    height: "40%",
     margin: '5%',
-    alignSelf: 'center',
-    borderWidth: 3,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 10,
-  },
-  person2: {
-    width: '90%',
-    height: '36%',
-    marginTop: '-0%',
+    padding: 5,
     alignSelf: 'center',
     backgroundColor: '#FFFFFF',
-    borderWidth: 3,
     borderRadius: 10,
+    borderWidth: 1,
   },
+
   prof: {
     flexDirection: 'row',
-    borderRadius: 100,
+    borderRadius: 50,
     marginLeft: 10,
     marginBottom: 10,
   },
-  letter: {
-    width: '12%',
-    height: '75%',
-    borderRadius: 100,
-    borderWidth: 1,
-    margin: 5,
-  },
+
   Initials: {
-    padding: 10,
+    padding: 5,
     fontWeight: 'bold',
     fontSize: 16,
-    borderRadius: 3,
-    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 8
   },
   per: {
     padding: 5,
@@ -188,22 +243,15 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
   },
   border: {
+    padding: 2,
     border: 1,
     width: '25%',
-    height: '75%',
-    borderWidth: 2,
-    marginTop: '2%',
+    borderWidth: 1,
+    marginTop: '5%',
   },
-  border2: {
-    border: 1,
-    width: '25%',
-    height: '75%',
-    borderWidth: 2,
-    marginTop: '2%',
-  },
+
   comment: {
     width: '70%',
-    height: '20%',
     borderWidth: 1,
     alignSelf: 'center',
     marginTop: '5%',

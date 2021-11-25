@@ -1,39 +1,42 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { TextInput, } from 'react-native-gesture-handler'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { firebase } from '@react-native-firebase/auth'
-import firestore  from "@react-native-firebase/firestore"; 
+import firestore from "@react-native-firebase/firestore";
 const SignUp = ({ navigation }) => {
     const img = require('../Assets/Images/logo.png')
-    
+
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
 
-    const handleSignUp = (navigate)=>{
-        if (password !== confirmPass){
-           alert("Passwords do not match")
-        }else if(password == confirmPass){
+    const handleSignUp = (navigate) => {
+        if (password !== confirmPass) {
+            alert("Passwords do not match")
+        } else if (password == confirmPass) {
             alert('You have successfuly signed up')
 
-            firebase.auth().createUserWithEmailAndPassword(email,password).then(()=>{
-            firestore().collection("users").doc(email).set({firstName:firstName, lastName:lastName,}).then(() =>{  
-                    navigate("Login");     
-                  })
-          }) .catch(function(error) {
-              // Handle Errors here.
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              if (errorCode == 'auth/weak-password') {
-                alert('The password is too weak.');
-              } else {
-                alert(errorMessage);
-              }
-              console.log(error);
-            });  
-          }
+            firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
+                firestore().collection("users").doc(email).set({ firstName: firstName, lastName: lastName, }).then(() => {
+                    firebase.auth().currentUser.updateProfile({
+                        displayName: firstName
+                    })
+                    navigate("Login");
+                })
+            }).catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                if (errorCode == 'auth/weak-password') {
+                    alert('The password is too weak.');
+                } else {
+                    alert(errorMessage);
+                }
+                console.log(error);
+            });
+        }
     }
 
     return (

@@ -1,45 +1,60 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { TextInput, } from 'react-native-gesture-handler'
-import { StyleSheet, Text, View, Image, Button,TouchableOpacity ,} from 'react-native'
+import { StyleSheet, Text, View, Image, Button, TouchableOpacity, } from 'react-native'
 import { firebase } from '@react-native-firebase/auth'
 
 
-const Login = ({setIsloggedIn, navigation}) => {
+const Login = ({ setIsloggedIn, navigation }) => {
     // Set an initializing state whilst Firebase connects
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const img = require('../Assets/Images/logo.png')
 
-    function onAuthStateChanged(user) {
-        setUser(user);
-        if (initializing) setInitializing(false);
-      }
-      useEffect(() => {
-        const subscriber = firebase.auth().onAuthStateChanged(user =>{
-            if(user) {
+    // function onAuthStateChanged(user) {
+    //     setUser(user);
+    //     if (initializing) setInitializing(false);
+    //   }
+    // cheking user authentication status
+    useEffect(() => {
+      const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                setUser(user)
+            } else {
+                setUser(null)
+            }
+        })
+        if (initializing) {
+            setInitializing(false)
+        }
+        return unsubscribe
+    }, [])
+
+    useEffect(() => {
+        const subscriber = firebase.auth().onAuthStateChanged(user => {
+            if (user) {
                 setIsloggedIn(true)
             }
         });
         return subscriber; // unsubscribe on unmount
-      }, []);
-      
+    }, []);
+
     //    firebase authentication
-    const handleSignIn =()=>{
-        firebase.auth().signInWithEmailAndPassword(email,password).then(()=>{
+    const handleSignIn = () => {
+        firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
             // alert('sign in successfull')
-        }).catch(function(error) {
+        }).catch(function (error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
             if (errorCode === 'auth/wrong-password') {
-              alert('Wrong password.');
+                alert('Wrong password.');
             } else {
-              alert(errorMessage);
+                alert(errorMessage);
             }
             console.log(error);
-          });
+        });
     }
 
     return (
@@ -65,7 +80,7 @@ const Login = ({setIsloggedIn, navigation}) => {
                 <TextInput
                     placeholder='Password'
                     style={styles.TextInput}
-                    value={password} 
+                    value={password}
                     onChangeText={text => setPassword(text)}
                     secureTextEntry
                 />

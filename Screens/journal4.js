@@ -46,8 +46,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
  export default Journal4 
  const styles = StyleSheet.create({
     mainContainer:{
-      backgroundColor:'#FFFFFF',
-      margin:10
+        flex:1,
+      backgroundColor:'#FFFFFF',  
     },
   contentText:{   
     fontSize:20,

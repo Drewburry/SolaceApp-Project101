@@ -14,40 +14,38 @@ const Content = (props) => {
         </View>)
 }
 
-const Journal = () => {
+const Journal = ({route, navigation}) => {
+    const {otherParam } = route.params;
     return (
         <View style={styles.mainContainer}>
             {/* Header text */}
-            <Text style={styles.contentText}>What makes you Happy?</Text>
+            <Text style={styles.contentText}>What makes you {otherParam}?</Text>
 
            {/* first row of icons */}
            <View style={{flexDirection:'row'}}>
-            <TouchableOpacity><Content images={require('../Assets/Images/friends.png')} text="Friends"/></TouchableOpacity>
-            <TouchableOpacity><Content images={require('../Assets/Images/family.png')} text="Family"/></TouchableOpacity>
-            <TouchableOpacity><Content images={require('../Assets/Images/date.png')} text="Date"/></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Journal3',{otherParam ,otherParam2:'friends'})}><Content images={require('../Assets/Images/friends.png')} text="Friends"/></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Journal3',{otherParam ,otherParam2:'family'})}><Content images={require('../Assets/Images/family.png')} text="Family"/></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Journal3',{otherParam ,otherParam2:'date'})}><Content images={require('../Assets/Images/date.png')} text="Date"/></TouchableOpacity>
            </View>
 
            {/* second row of icons */}
            <View style={{flexDirection:'row'}}>
-            <TouchableOpacity><Content images={require('../Assets/Images/movies.png')} text="Movies"/></TouchableOpacity>
-            <TouchableOpacity><Content images={require('../Assets/Images/cleaning.png')} text="Cleaning"/></TouchableOpacity>
-            <TouchableOpacity><Content images={require('../Assets/Images/exercising.png')} text="Exercise"/></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Journal3', {otherParam ,otherParam2:'movies'})}><Content images={require('../Assets/Images/movies.png')} text="Movies"/></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Journal3', {otherParam ,otherParam2:'cleaning'})}><Content images={require('../Assets/Images/cleaning.png')} text="Cleaning"/></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Journal3',{otherParam ,otherParam2:'excercise'})}><Content images={require('../Assets/Images/exercising.png')} text="Exercise"/></TouchableOpacity>
            </View>
 
-           {/* second row of icons */}
+           {/* Third row of icons */}
            <View style={{flexDirection:'row'}}>
-            <TouchableOpacity><Content images={require('../Assets/Images/games.png')} text="Gaming"/></TouchableOpacity>
-            <TouchableOpacity><Content images={require('../Assets/Images/sleeping.png')} text="sleeping"/></TouchableOpacity>
-            <TouchableOpacity><Content images={require('../Assets/Images/relaxing.png')} text="relaxing"/></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Journal3', {otherParam , otherParam2:'gaming'})}><Content images={require('../Assets/Images/games.png')} text="Gaming"/></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Journal3', {otherParam ,otherParam2:'sleeping'})}><Content images={require('../Assets/Images/sleeping.png')} text="sleeping"/></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Journal3', {otherParam ,otherParam2:'relaxing'})}><Content images={require('../Assets/Images/relaxing.png')} text="relaxing"/></TouchableOpacity>
            </View>
 
             {/* Buttons  */}
             <View style={styles.btns}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Journal')}>
                     <Text style={styles.btn}>Back</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button2}>
-                    <Text style={styles.btn}>Next</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -95,7 +93,6 @@ const styles = StyleSheet.create({
         width: 85,
         height: 40,
         marginTop: 10,
-        marginRight: 70,
         backgroundColor: 'black',
         padding:7
         
@@ -103,7 +100,7 @@ const styles = StyleSheet.create({
 
     btns: {
         flexDirection: 'row',
-        marginTop:100,
+        marginTop:65,
         paddingVertical:25,
     },
     button2: {

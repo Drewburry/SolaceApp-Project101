@@ -19,9 +19,8 @@ const styles = StyleSheet.create({
     btn:{
       color:'#F2C66E',
       left:0,
-      size:40,
       marginTop:-32,
-      marginLeft:265,
+      marginLeft:240,
    
 
 
